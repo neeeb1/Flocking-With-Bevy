@@ -1,4 +1,4 @@
-use bevy::prelude::*;
+use bevy::{prelude::*, time, transform};
 
 #[derive(Component, Debug)]
 pub struct Velocity {
@@ -33,13 +33,21 @@ pub struct MovementPlugin;
 
 impl Plugin for MovementPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Update, (update_position, update_velocity));
+        app.add_systems(Update, (update_position,  update_velocity, update_rotation));
     }
 }
 
 fn update_velocity(mut query: Query<(&Acceleration, &mut Velocity)>, time: Res<Time>) {
     for (acceleration, mut velocity) in query.iter_mut() {
         velocity.value += acceleration.value * time.delta_seconds();
+        velocity.value.y = 0.0;
+    }
+}
+
+fn update_rotation(mut query: Query<(&Velocity, &mut Transform)>) {
+    for (velocity, mut transform) in query.iter_mut() {
+        let rotation = transform.looking_to(velocity.value, Vec3::new(0., 1., 0.)).rotation;
+        transform.rotation = rotation;
     }
 }
 
