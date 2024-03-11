@@ -46,10 +46,10 @@ fn update_velocity(mut query: Query<(&Acceleration, &mut Velocity)>, time: Res<T
     }
 }
 
-fn update_rotation(mut query: Query<(&Velocity, &mut Transform)>) {
+fn update_rotation(mut query: Query<(&Velocity, &mut Transform)>, time: Res<Time>) {
     for (velocity, mut transform) in query.iter_mut() {
         let new_rotation = transform
-            .looking_to(velocity.value, Vec3::new(0., 1., 0.))
+            .looking_to(velocity.value, Vec3::new(0., 1., time.delta_seconds()))
             .rotation;
 
         transform.rotation = transform.rotation.lerp(new_rotation, 0.05);

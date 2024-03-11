@@ -1,4 +1,5 @@
-// Trying to simulate flocking behavior in 3d using bevy
+// Simulate boids flocking behavior in 3d space using bevy
+// (with bees)
 
 mod asset_loader;
 mod bee;
@@ -22,6 +23,7 @@ fn main() {
             color: Color::default(),
             brightness: 900.0,
         })
+        //TODO: add window settigns in preparation of adding UI?
         .add_plugins(DefaultPlugins)
 
         // Custom plugins.

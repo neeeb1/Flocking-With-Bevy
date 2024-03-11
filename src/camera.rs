@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 
 
-const CAMERA_DISTANCE: f32 = 350.0 ;
+const CAMERA_DISTANCE: f32 = 650.0 ;
 
 pub struct CameraPlugin;
 

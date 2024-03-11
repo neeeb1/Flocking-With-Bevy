@@ -11,7 +11,7 @@ impl Plugin for DebugPlugin {
             app.add_systems(
                 PostUpdate,
                 (
-                    print_position,
+                    debug_position,
                     debug_neighbors,
                     debug_separation,
                     debug_movement,
@@ -21,7 +21,7 @@ impl Plugin for DebugPlugin {
     }
 }
 
-fn print_position(query: Query<(Entity, &Transform)>) {
+fn debug_position(query: Query<(Entity, &Transform)>) {
     // Log the entity ID and the transform of each entity with a Transform
     for (entity, transform) in query.iter() {
         println!(
@@ -34,8 +34,8 @@ fn print_position(query: Query<(Entity, &Transform)>) {
 fn debug_neighbors(query: Query<(&Bee, Entity)>) {
     for (bee, entity) in query.iter() {
         println!(
-            "entity {1} has {0} neighbors",
-            bee.nearby_bees.len(),
+            "entity {1} can see {0} neighbors",
+            bee.in_sight_bees.len(),
             entity.index()
         );
     }
